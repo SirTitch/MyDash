@@ -1,0 +1,62 @@
+[
+      {
+        "id": 1,
+        "name": "Quantum Coffee Maker",
+        "description": "Brews your coffee in multiple dimensions simultaneously.",
+        "image": "https://picsum.photos/200?random=1"
+      },
+      {
+        "id": 2,
+        "name": "Holographic Smartphone",
+        "description": "Projects a 3D holographic display and interface.",
+        "image": "https://picsum.photos/200?random=2"
+      },
+      {
+        "id": 3,
+        "name": "Time-Traveling Watch",
+        "description": "Keeps time in all time zones, including those not invented yet.",
+        "image": "https://picsum.photos/200?random=3"
+      },
+      {
+        "id": 4,
+        "name": "Telepathic Headphones",
+        "description": "Plays music based on your mood and thoughts.",
+        "image": "https://picsum.photos/200?random=4"
+      },
+      {
+        "id": 5,
+        "name": "Invisible Tablet",
+        "description": "A fully functional tablet that can become invisible.",
+        "image": "https://picsum.photos/200?random=5"
+      },
+      {
+        "id": 6,
+        "name": "AI Personal Chef",
+        "description": "A robot that can cook any dish perfectly.",
+        "image": "https://picsum.photos/200?random=6"
+      },
+      {
+        "id": 7,
+        "name": "Self-Cleaning Keyboard",
+        "description": "A keyboard that never gets dirty.",
+        "image": "https://picsum.photos/200?random=7"
+      },
+      {
+        "id": 8,
+        "name": "Levitating Speaker",
+        "description": "A speaker that levitates and follows you around the house.",
+        "image": "https://picsum.photos/200?random=8"
+      },
+      {
+        "id": 9,
+        "name": "Smart Mirror",
+        "description": "A mirror that shows your health stats and the weather.",
+        "image": "https://picsum.photos/200?random=9"
+      },
+      {
+        "id": 10,
+        "name": "Teleportation Pad",
+        "description": "A device that can teleport you anywhere in the world.",
+        "image": "https://picsum.photos/200?random=10"
+      }
+]

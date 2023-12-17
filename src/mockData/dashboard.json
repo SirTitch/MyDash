@@ -1,0 +1,30 @@
+[
+    {
+      "id": 1,
+      "stock_sold": 200,
+      "alloted_stock": 300,
+      "top_sellers": [1, 2, 3],
+      "items_out_of_stock": [4, 5, 6]
+    },
+    {
+      "id": 2,
+      "stock_sold": 150,
+      "alloted_stock": 250,
+      "top_sellers": [7, 8, 9],
+      "items_out_of_stock": [10, 1, 2]
+    },
+    {
+      "id": 3,
+      "stock_sold": 100,
+      "alloted_stock": 200,
+      "top_sellers": [3, 4, 5],
+      "items_out_of_stock": [6, 7, 8]
+    },
+    {
+      "id": 4,
+      "stock_sold": 50,
+      "alloted_stock": 150,
+      "top_sellers": [9, 10, 1],
+      "items_out_of_stock": [2, 3, 4]
+    }
+  ]
