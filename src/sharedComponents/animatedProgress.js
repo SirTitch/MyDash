@@ -32,7 +32,6 @@ const AnimatedProgressComponent = (props) => {
     }));
 
     React.useEffect(() => {
-      console.log(progress)
       progressCircle.value = withTiming(progress, {duration: 2000});
     }, [progress]);
   return (

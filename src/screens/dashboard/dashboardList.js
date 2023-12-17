@@ -22,10 +22,8 @@ class DashboardList extends React.Component {
     this.listRef = React.createRef()
   }
 
-  // Renders the list container and then maps out the lists fromthe data provided
+  // Renders the list container and then maps out the lists from the data provided
   renderLists = ({item, index}) => {
-    console.log(item
-        )
     return (
       <View
         style={{
@@ -44,8 +42,29 @@ class DashboardList extends React.Component {
                   {item.title}
                 </Text>
               </View>
+              <View
+                style={{
+                  flex: 2,
+                  alignItems: 'center',
+                  justifyContent: 'flex-end',
+                  flexDirection: 'row',
+                }}>
+                  <Text style={styles.componentSectionTitle}>
+                    {"Add Item"}
+                  </Text>
+                  <View style={{paddingHorizontal: '2%'}}>
+                    <MaterialCommunityIcons
+                      name={'plus-circle'}
+                      size={20}
+                      color={'#5783db'}
+                      onPress={() => {
+                        this.props.onAddItemPressed(index);
+                      }}
+                    />
+                  </View>
+              </View>
             </View>
-            {item.data.map((listItem, index) => {
+            {item.data.reverse().map((listItem, index) => {
               return (
                 <View style={{paddingVertical: '2%', borderBottomWidth: StyleSheet.hairlineWidth, borderColor: 'lightGrey'}}>
                   <View

@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text, SafeAreaView, StatusBar, StyleSheet, Animated, ActivityIndicator, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, SafeAreaView, StatusBar, StyleSheet, Animated, ActivityIndicator, TouchableOpacity, Alert, Modal } from 'react-native';
 import { connect } from 'react-redux';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AnimatedProgressComponent from '../../sharedComponents/animatedProgress';
 import DashboardList from './dashboardList';
 import styles from './dashboard.style';
 import {setUserLoggedIn, setUserProfile, setAllItems, setTopSellers, setOutOfStock} from "../../redux/actions/profile";
+import AddItemModal from './addItemModal';
 
 class DashboardScreen extends React.Component {
   constructor(props) {
@@ -29,7 +30,9 @@ class DashboardScreen extends React.Component {
           data: [],
         },
       ],
-      loading: true
+      loading: true,
+      showAddItemModal: false,
+      listIndex: 0,
     };
   }
 
@@ -43,6 +46,10 @@ class DashboardScreen extends React.Component {
     }
   }
 
+  componentDidUpdate (nextProps) {
+    // if (this.props.userLoggedIn ===)
+  }
+
   onLogoutPressed = () => {
     this.setState({loading: true});
     //Short timeout to mimic restAPI
@@ -51,14 +58,12 @@ class DashboardScreen extends React.Component {
         text: 'yes',
         onPress: () => {
           setTimeout(() => {
-            this.props.navigation.navigate('Login', { userService: this.props.route.params.userService});
-            setTimeout(() => {
-              this.props.setUserLoggedInRedux({userLoggedIn: false});
-              this.props.setUserProfileRedux({userProfile: {}});
-              this.props.setTopSellersRedux({topSellers : []});
-              this.props.setOutOfStockRedux({outOfStock: []});
-              this.props.setAllItemsRedux({allItems: []});
-            }, 1000)
+            this.props.navigation.pop();
+            this.props.setUserLoggedInRedux({userLoggedIn: false});
+            this.props.setUserProfileRedux({userProfile: {}});
+            this.props.setTopSellersRedux({topSellers : []});
+            this.props.setOutOfStockRedux({outOfStock: []});
+            this.props.setAllItemsRedux({allItems: []});
           }, 2000);
         }
       },
@@ -67,6 +72,45 @@ class DashboardScreen extends React.Component {
         onPress: () => { this.setState({loading: false})}
       }
     ])
+  }
+
+  toggleAddItemModal = (index) => {
+    this.setState({showAddItemModal: !this.state.showAddItemModal, listIndex: index})
+  }
+
+  //Create item just updates Redux so data will be lost on reset, as data is just in a JSON file
+  createNewItem = (name, description) => {
+    let allItems = this.props.allItems;
+    let topSellers = this.props.topSellers;
+    let outOfStock = this.props.outOfStock;
+    let profile = this.props.userProfile;
+    let dash = profile.dashboard;
+
+    let id = allItems.length + 1;
+    let newItem = {
+      id: id,
+      name: name,
+      description: description,
+      image:  "https://picsum.photos/200?random=" + id,
+    }
+    allItems.push(newItem);
+    if (this.state.listIndex === 0) {
+      topSellers.push(newItem);
+    } else if ( this.state.listIndex === 1){
+      outOfStock.push(newItem);
+    }
+
+    dash.stock_sold = dash.stock_sold + 1;
+    dash.alloted_stock = dash.alloted_stock + 1;
+
+    profile.dashboard = dash;
+
+    this.props.setUserProfileRedux({userProfile: profile});
+    this.props.setTopSellersRedux({topSellers : topSellers});
+    this.props.setOutOfStockRedux({outOfStock: outOfStock});
+    this.props.setAllItemsRedux({allItems: allItems});
+
+    this.toggleAddItemModal(2);
   }
 
   render() {
@@ -89,28 +133,7 @@ class DashboardScreen extends React.Component {
        <StatusBar
           barStyle="dark-content"
         />
-       <View style={styles.header}>
-        <View style={{flex: 9, alignSelf: 'center'}}>
-          <Text style={styles.headerTextStyle}>
-            { userProfile?.email + "'s Dashboard"}
-          </Text>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'flex-end',
-          }}>
-            <TouchableOpacity onPress={() => {this.onLogoutPressed()}}>
-              <MaterialCommunityIcons
-                name={'logout'}
-                size={25}
-                color={"grey"}
-              />
-            </TouchableOpacity>
-        </View>
-      </View>
-      {this.state.loading ? (
+        {this.state.loading ? (
           <View style={styles.loadingScreenWrapper}>
             <View style={styles.loadingScreenInnerContainer}>
               <ActivityIndicator
@@ -120,6 +143,28 @@ class DashboardScreen extends React.Component {
             </View>
           </View>
         ) : (
+         <> 
+          <View style={styles.header}>
+            <View style={{flex: 9, alignSelf: 'center'}}>
+              <Text style={styles.headerTextStyle}>
+                { userProfile?.email + "'s Dashboard"}
+              </Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'flex-end',
+              }}>
+                <TouchableOpacity onPress={() => {this.onLogoutPressed()}}>
+                  <MaterialCommunityIcons
+                    name={'logout'}
+                    size={25}
+                    color={"grey"}
+                  />
+                </TouchableOpacity>
+            </View>
+          </View>
           <Animated.ScrollView style={styles.scrollViewStyle}>
             <View style={{paddingHorizontal: '5%', paddingVertical: '5%'}}>
               <View style={styles.spentContainer}>
@@ -152,7 +197,7 @@ class DashboardScreen extends React.Component {
                     <AnimatedProgressComponent
                       progress={userProfile.dashboard.stock_sold/userProfile.dashboard.alloted_stock}
                       width={125}
-                      colour1={'blue'}
+                      colour1={'#5783db'}
                     />
                   </View>
                 </View>
@@ -182,8 +227,18 @@ class DashboardScreen extends React.Component {
             <DashboardList
               lists={this.state.lists}
               loading={this.state.loading}
+              onAddItemPressed={this.toggleAddItemModal}
             />
           </Animated.ScrollView>
+         </>
+        )}
+        {this.state.showAddItemModal && (
+          <AddItemModal 
+            itemIndex={this.state.itemIndex} 
+            showAddItemModal={this.state.showAddItemModal} 
+            toggleModal={this.toggleAddItemModal}
+            createNewItem={this.createNewItem}
+          />
         )}
       </SafeAreaView>
     );

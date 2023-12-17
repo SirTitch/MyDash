@@ -1,7 +1,6 @@
 const usersJson = require('../mockData/users.json');
 const dashboardItemJson = require('../mockData/dashboardItem.json');
 
-
 /**
  * for now, as we don't have REST APIs, I've put local json files under mockData Folder
  */
