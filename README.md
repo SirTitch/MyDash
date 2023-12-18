@@ -7,3 +7,12 @@ A simple react-native application with login and a dashboard
 ### Once inside the folder, run `npm install` to install required dependencies.
 ### If running IOS then run the following `cd ios && pod install && cd ..` to install podfiles.
 ### To run for Android, `npx react-native start` and then once the metro bundler is initialised, press the `a` key to start the android build. (Make sure to have an emulator running or a device with USB Debugging enabled connect to your machine).
+### To run on ios open `ios/MyDash.xcworkspace` in Xcode, making sure pods are installed and choose an emulator and click run.
+
+
+# Assumptions & Decisions
+#### Due to the API using mock data from a JSON, the bonus feature of adding a new dashboard item only updates the state rather than manipulate any files, so any new data is lost on reset. Moving the API to a NodeJS server and having a DB would be the next step to then have these addition saved.
+#### I wasn't sure on if 'Update the UI accordingly based on the authentication state.' meant i had to listen for changes in Redux state or not but the UI will update when the user is authenticated, and the Redux state is updated to reflect the user being logged in.
+#### I assumed there was no need for proper password security with encryption etc.
+#### I used a mix of class components and functional components, as i'am more comfertable with Class components but can easily use functional components just as easily.
+#### Prompt was open so added a few things to the dashboard other than items to flesh it out a little bit.
