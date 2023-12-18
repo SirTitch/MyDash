@@ -34,7 +34,7 @@ class GeneralInput extends React.Component {
                 <View style={{ borderWidth: StyleSheet.hairlineWidth, borderColor: this.props.showErrorMessage === true ? 'red' :'black', borderRadius: 6, flexDirection: 'row'}}>
                     <View style={{flex: 8}}>
                         <TextInput
-                            style={{}}
+                            style={[Platform.OS == 'ios' && { paddingVertical: '3%', paddingHorizontal: '1%'}]}
                             onChangeText={text => this.props.onChangeText(text)}
                             value={this.props.value}
                             secureTextEntry={this.props.censorInput === true ? !this.state.showInputValue : false}

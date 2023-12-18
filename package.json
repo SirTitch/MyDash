@@ -22,7 +22,7 @@
     "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "^13.7.0",
     "react-native-svg-transformer": "^1.0.0",
-    "react-native-vector-icons": "^9.2.0",
+    "react-native-vector-icons": "^10.0.0",
     "react-redux": "7.2.5",
     "redux": "4.1.1"
   },

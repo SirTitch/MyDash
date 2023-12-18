@@ -87,9 +87,9 @@ class LoginScreen extends React.Component {
   }
 
   onLoginPressed = () => {
+    try {
     if (this.checkPassword(true) === true && this.checkEmail(true) === true){
       this.setState({isLoading: true});
-      try {
         let response = this.state.userService.doLogin(this.state.email, this.state.password);
         if (response.status === 'success'){
           let payload1 = {userProfile: response.response}
@@ -107,11 +107,7 @@ class LoginScreen extends React.Component {
             this.setState({email: '', password: '', isLoading: false})
           }, 2000);
         }      
-      } catch (error) {
-        this.setState({isLoading: false})
-        Alert.alert("Error", "Sorry we seem to be having trouble fecthing your profile. Please try again later.");
-      }
-    } else {
+      } else {
         if (response.response.variable === 'email'){
           this.setState({showEmailError: true, emailErrorMessage: response.response.msg, isLoading: false}, () => {
             setTimeout(() => {
@@ -125,71 +121,98 @@ class LoginScreen extends React.Component {
             }, 2000)
           });
         }
+      }
+    } catch (error) {
+      this.setState({isLoading: false})
+      Alert.alert("Error", "Sorry we seem to be having trouble fecthing your profile. Please try again later.");
     }
   } 
 
 
   render() {
     return (
-      <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
-      <StatusBar
-          barStyle="dark-content"
-        />
-        <View style={{flex: 1, justifyContent: 'center', alignItems: "center"}}>
-             <MyDashTextLogo height={50} width={200}/>
-        </View>
-        <View style={{flex: 4, paddingHorizontal: '5%'}}>
-          <View>
-            <Text style={{ fontSize: 20, fontWeight: '600'}}>Login</Text>
+      <>
+        <SafeAreaView
+          style={{flex: 1, backgroundColor: '#fff'}}>
+          <StatusBar barStyle="dark-content" />
+          <View
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <MyDashTextLogo height={50} width={200} />
           </View>
-          <View style={{flex: 4}}>
-            <View style={{}}>
-              <GeneralInput
-                title={"Email"}
-                value={this.state.email}
-                inputMode={'email'}
-                placeholder={'Please enter a valid email-address'}
-                onChangeText={this.onChangeEmailText}
-                errorMessage={this.state.emailErrorMessage}
-                showErrorMessage={this.state.showEmailError}
-                onEndEditing={() => {
-                  this.checkEmail();
-                }}
-              />
+          <View style={{flex: 4, paddingHorizontal: '5%'}}>
+            <View>
+              <Text style={{fontSize: 20, fontWeight: '600'}}>Login</Text>
             </View>
-            <View style={{}}>
-              <GeneralInput
-                title={"Password"}
-                value={this.state.password}
-                placeholder={'Please enter a password with 8 or more characters'}
-                onChangeText={this.onChangePasswordText}
-                errorMessage={this.state.passwordErrorMessage}
-                showErrorMessage={this.state.showPasswordError}
-                onEndEditing={() => {
-                  this.checkPassword();
-                }}
-                censorInput={true}
-              />
-            </View>
-          </View>
-          <View style={{flex: 1, justifyContent: 'center'}}>
-            <TouchableOpacity style={{paddingHorizontal: '2%'}} 
-            onPress={() => {
-              this.onLoginPressed();
-              // this.props.navigation.navigate('Dashboard', {});
-            }}>
-              <View style={{ borderRadius: 6, backgroundColor: '#5783db', width: '100%', alignItems: 'center', paddingVertical: '3%'}}>
-                <Text style={{fontSize: 20, color: 'white', fontWeight: '500'}}>{'Login'}</Text>
+            <View style={{flex: 4}}>
+              <View style={{}}>
+                <GeneralInput
+                  title={'Email'}
+                  value={this.state.email}
+                  inputMode={'email'}
+                  placeholder={'Please enter a valid email-address'}
+                  onChangeText={this.onChangeEmailText}
+                  errorMessage={this.state.emailErrorMessage}
+                  showErrorMessage={this.state.showEmailError}
+                  onEndEditing={() => {
+                    this.checkEmail();
+                  }}
+                />
               </View>
-            </TouchableOpacity>
+              <View style={{}}>
+                <GeneralInput
+                  title={'Password'}
+                  value={this.state.password}
+                  placeholder={
+                    'Please enter a password with 8 or more characters'
+                  }
+                  onChangeText={this.onChangePasswordText}
+                  errorMessage={this.state.passwordErrorMessage}
+                  showErrorMessage={this.state.showPasswordError}
+                  onEndEditing={() => {
+                    this.checkPassword();
+                  }}
+                  censorInput={true}
+                />
+              </View>
+            </View>
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <TouchableOpacity
+                style={{paddingHorizontal: '2%'}}
+                onPress={() => {
+                  this.onLoginPressed();
+                  // this.props.navigation.navigate('Dashboard', {});
+                }}>
+                <View
+                  style={{
+                    borderRadius: 6,
+                    backgroundColor: '#5783db',
+                    width: '100%',
+                    alignItems: 'center',
+                    paddingVertical: '3%',
+                  }}>
+                  <Text
+                    style={{fontSize: 20, color: 'white', fontWeight: '500'}}>
+                    {'Login'}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-        {this.state.isLoading === true && (
-          <SafeAreaView style={{flex: 1, height: '100%', width: "100%", position: 'absolute', justifyContent: 'center', backgroundColor: '#C4C4C480'}}>
-              <ActivityIndicator size={100} color={'#5783db'}/>
-          </SafeAreaView>
-        )}
-      </SafeAreaView>
+        </SafeAreaView>
+          {this.state.isLoading == true && (
+            <View
+              style={{
+                flex: 1,
+                height: '100%',
+                width: '100%',
+                position: 'absolute',
+                justifyContent: 'center',
+                backgroundColor: '#C4C4C480',
+              }}>
+              <ActivityIndicator size={100} color={'#5783db'} />
+            </View>
+          )}
+      </>
     );
   }
 }
