@@ -16,3 +16,12 @@ A simple react-native application with login and a dashboard
 #### I assumed there was no need for proper password security with encryption etc.
 #### I used a mix of class components and functional components, as i'am more comfortable with Class components but can use functional components just as easily.
 #### Prompt was open so added a few things to the dashboard other than items to flesh it out a little bit.
+
+# Example Of Screens
+#### Login:
+![MyDash-Dashboard](https://github.com/SirTitch/MyDash/assets/35763984/5dcc4136-2adc-4c70-90ce-3ede05595adf)
+#### Dashboard:
+![MyDashLogin](https://github.com/SirTitch/MyDash/assets/35763984/151fa4c4-2560-4bee-b179-bc78fa1bfe19)
+#### Video Demo:
+https://github.com/SirTitch/MyDash/assets/35763984/218d6544-05b2-494d-b55e-6ea1edcb1b1e
+
