@@ -19,6 +19,7 @@ I used a mix of class components and functional components, as i'am more comfort
 Prompt was open so added a few things to the dashboard other than items to flesh it out a little bit.
 
 # Example Of Screens
+A few screenshots of the demo, some loss in quality from the emulator and screenshots.
 #### Login:
 ![MyDash-Dashboard](https://github.com/SirTitch/MyDash/assets/35763984/5dcc4136-2adc-4c70-90ce-3ede05595adf)
 #### Dashboard:
